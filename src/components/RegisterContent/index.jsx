@@ -3,10 +3,9 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-
 import axiosClient from "../../libraries/axiosClient";
 import IsLoadingSmall from "../IsLoadingSmall";
-
+import { Dialog, Transition } from "@headlessui/react";
 function RegisterContent() {
   const router = useRouter();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -18,7 +17,6 @@ function RegisterContent() {
       email: "",
       phoneNumber: "",
       password: "",
-      // birthday: "",
       enteredCode: "",
     },
 
@@ -57,19 +55,19 @@ function RegisterContent() {
             /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
           return phoneRegex.test(value);
         }),
-      enteredCode: yup
-        .string()
-        // .required("Vui lòng nhập mã xác thực gồm 6 chữ số được gửi về gmail của bạn")
-        .matches(
-          /^\d{6}$/,
-          "Mã xác thực: Gồm 6 chữ số được gửi đến gmail của bạn"
-        ),
+      // enteredCode: yup
+      //   .string()
+      //   .required("Vui lòng nhập mã xác thực gồm 6 chữ số được gửi về gmail của bạn")
+      //   .matches(
+      //     /^\d{6}$/,
+      //     "Mã xác thực: Gồm 6 chữ số được gửi đến gmail của bạn"
+      //   ),
     }),
     onSubmit: async (values) => {
       try {
         setIsButtonDisabled(true);
         await axiosClient.post("/auth/register", values);
-        // router.push("/register");
+        router.push("/register");
         setShowVerificationModal(true);
         toast.warning("Vui lòng nhập mã xác thực được gửi đến email của bạn");
       } catch (error) {
@@ -85,7 +83,7 @@ function RegisterContent() {
       }
     },
   });
-  
+
   return (
     <div
       className="flex justify-center items-center bg-gray-100 p-10"
@@ -229,19 +227,68 @@ function RegisterContent() {
             </button>
           </div>
         </form>
-        {showVerificationModal && (
-          <div className="modal">
-            <div className="modal-content">
-              <h2>Mời bạn nhập mã xác thực</h2>
-              <input
-                type="text"
-                // value={verificationCode}
-                // onChange={(e) => setVerificationCode(e.target.value)}
-              />
-              <button>Xác nhận</button>
+        <Transition show={showVerificationModal} as={React.Fragment}>
+          <Dialog
+            onClose={() => setShowVerificationModal(false)}
+            className="fixed inset-0 z-10 overflow-y-auto"
+          >
+            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <Transition.Child
+                as={React.Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              </Transition.Child>
+
+              {/* This element is to trick the browser into centering the modal contents. */}
+              <span
+                className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                aria-hidden="true"
+              >
+                &#8203;
+              </span>
+              <Transition.Child
+                as={React.Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:opacity-100"
+                enterTo="opacity-100 translate-y-0 sm:opacity-100 sm:translate-y-0"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 translate-y-0 sm:opacity-100 sm:translate-y-0"
+                leaveTo="opacity-0 translate-y-4 sm:translate-y-0"
+              >
+                <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Xin mời nhập mã xác thực
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <input
+                      type="number"
+                      // value={verificationCode}
+                      // onChange={(e) => setVerificationCode(e.target.value)}
+                    />
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                      onClick={() => setShowVerificationModal(false)}
+                    >
+                      Xác nhận
+                    </button>
+                  </div>
+                </div>
+              </Transition.Child>
             </div>
-          </div>
-        )}
+          </Dialog>
+        </Transition>
       </div>
     </div>
   );
