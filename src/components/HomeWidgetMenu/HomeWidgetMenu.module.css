@@ -1,0 +1,243 @@
+/* Build css intro_wrapper */
+
+.widget_today_menu_wrapper .today_menu_content{
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.today_menu_content .intro_wrapper{
+    display: flex;
+    width: 25%;
+    float: left;
+    background: #e31837;
+}
+
+.intro_wrapper .intro{
+    max-width: 264px;
+    margin: auto;
+    text-align: center;
+}
+
+.intro_wrapper .logo{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+
+.intro-wrapper .logo img{
+    margin: 0 auto 15px auto;
+}
+
+.logo img {
+    height: auto;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+    max-width: 90px;
+}
+
+.today_menu_content .intro_wrapper .title{
+    font-size: 70px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.today_menu_content .intro_wrapper .description{
+    font-size: 22px;
+    color: #fff;
+}
+
+/* End build css intro_wrapper */
+
+/* Build css main_menu_wrapper */
+.today_menu_content .main_menu_wrapper{
+    display: flex;
+    float: right;
+    width: 75%;
+}
+
+.today_menu_content .main_menu_wrapper .quad_menu{
+    display: flex;
+    width: 100%;
+}
+
+.today_menu_content .main_menu_wrapper .quad_menu .quad{
+    height: 100%;
+    margin-left: 4px;
+    display: initial;
+    width: 100%;
+    background: url(https://jollibee.com.vn/static/version1698938216/frontend/Jollibee/default/vi_VN/images/bg-wood.jpg) repeat center center;
+    background-size: cover;
+    transition: all .2s linear;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    filter: brightness(100%);
+}
+
+.today_menu_content .main_menu_wrapper .quad_menu:hover .quad{
+    filter: brightness(90%);
+}
+
+.quad_menu .quad:visited{
+    color: #006bb4;
+    text-decoration: none;
+}
+
+.main_menu_wrapper .quad_menu .quad .top_img_wrapper{
+    margin: 22% 0;
+    text-align: right;
+}
+
+.top_img{
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}
+
+
+.main_menu_wrapper .quad_menu .quad .bottom_img_wrapper{
+    background-color: #e31837;
+    transform: translateY(150px);
+    transition: all .5s ease-in-out;
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+    position: absolute;
+    bottom: 72px;
+    left: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+.main_menu_wrapper .quad_menu .quad .bottom_img_wrapper .bottom_img{
+    width: 190px;
+    height: 40px;
+    display: block;
+    margin: 0 auto 30px auto;
+    max-width: 100%;
+}
+
+.quad_menu .quad:hover .bottom_img_wrapper{
+    transform: none;
+    bottom: 0;
+}
+
+.main_menu_wrapper .quad_menu .quad .bottom_img_wrapper .btn_bottom{
+    color: #000;
+    background: #ffc522;
+    padding: 8px 20px;
+    font-size: 20px;
+    box-shadow: none;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+ .btn_bottom:hover{
+    padding: 10;
+    font-weight: 700;
+}
+
+
+/* End build css main_menu_wrapper */
+
+
+/* Build responsive  */
+
+@media screen and (max-width: 2560px) {
+    .intro_wrapper .intro{
+        padding: 20px;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+
+    .main_menu_wrapper .quad_menu .quad .bottom_img_wrapper{
+        padding: 25px;
+    }
+
+    .widget_today_menu_wrapper .today_menu_content{
+        padding: 0 20px;
+    }
+
+    .today_menu_content .intro_wrapper{
+        display: none;
+    }
+
+    .today_menu_content .main_menu_wrapper{
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .today_menu_content .main_menu_wrapper .quad_menu{
+        display: grid;
+        gap: 15px;
+        grid-template-columns: auto auto;
+        grid-column-gap: 15px;
+        grid-row-gap: 20px;
+        width: 100%;
+    }
+
+    .today_menu_content .main_menu_wrapper .quad_menu .quad{
+        margin-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 440px) {
+
+    .main_menu_wrapper .quad_menu .quad .bottom_img_wrapper{
+        padding: 14px;
+    }
+  }
+
+    @media screen and (max-width: 375px) {
+
+    .main_menu_wrapper .quad_menu .quad .bottom_img_wrapper{
+        padding: 12px 4px;
+    }
+}
+
+@media screen and (min-width: 1441px) {
+    .intro_wrapper .intro{
+        padding: 40px 0;
+        max-width: 406px;
+    }
+
+    .logo img {
+        max-width: 200px;
+    }
+
+    .today_menu_content .intro_wrapper .title{
+        font-size: 130px;
+    }
+
+    .today_menu_content .intro_wrapper .description{
+        font-size: 45px;
+    }
+
+    .main_menu_wrapper .quad_menu .quad .bottom_img_wrapper{
+        padding: 30px 30px 10px 30px;
+        left: 40px;
+        right: 40px;
+    }
+
+    .main_menu_wrapper .quad_menu .quad .bottom_img_wrapper .bottom_img{
+        width: 240px;
+        height: 50px;
+    }
+
+    .main_menu_wrapper .quad_menu .quad .bottom_img_wrapper .btn_bottom{
+        padding: 8px 20px;
+        font-size: 35px;
+    }
+
+  }
+
+/* End build responsive */

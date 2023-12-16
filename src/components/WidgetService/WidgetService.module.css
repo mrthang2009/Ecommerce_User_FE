@@ -1,0 +1,103 @@
+.widget_service_wrapper {
+    background: url(https://jollibee.com.vn/static/version1698938216/frontend/Jollibee/default/vi_VN/Levinci_Widget/images/jollibee-kid-party-bg.png) repeat center;
+    background-size: contain;
+    padding: 70px 20px;
+}
+
+.widget_service_wrapper .title_wrapper {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.widget_service_wrapper .title_wrapper .title{
+    font-size: 65px;
+    color: #e31837;
+    text-transform: uppercase;
+}
+
+.widget_service_wrapper .title_wrapper .description{
+    font-size: 30px;
+    /* text-transform: uppercase; */
+    color: #000;
+}
+
+/* Build css content_service */
+.widget_service_wrapper .content_service {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.content_service .service_entry {
+    width: calc((100% - 34px) / 3);
+    text-align: center;
+}
+
+.service_entry .media{
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.content_service .service_entry .media_center{
+    display: block;
+    min-height: 348px;
+}
+
+.service_entry .media_center:visited{
+    color: #006bb4;
+    text-decoration: none;
+}
+
+.service_entry .media_center .img{
+    max-width: 309px;
+    width: 100%;
+    height: auto;
+    border: 0;
+}
+
+.service_entry .media_heading{
+    font-size: 21px;
+    line-height: 42px;
+    font-family: 'MergeBlack',sans-serif;
+    color: #42210b;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.content_service .service_entry .action{
+    border-radius: 8px;
+    padding: 12px 15px;
+    min-width: 180px;
+    display: inline-block;
+    text-decoration: none;
+    background: #e31837;
+    border: 1px solid #e31837;
+    color: #fff;
+    cursor: pointer;
+    vertical-align: middle;
+    font-weight: 600;
+    font-size: 26px;
+
+}
+
+.content_service .service_entry .action:hover{
+    background-color: #F3D2D6;
+    border: 1px solid #F3D2D6;
+    color: #333;
+}
+
+/* End build css content_service */
+
+/* Build responsive */
+
+@media screen and (max-width: 1023px) {
+    .content_service .service_entry .media_center{
+        min-height: 0;
+    }
+  }
+
+/* End build responsive */

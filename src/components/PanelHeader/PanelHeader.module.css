@@ -1,0 +1,92 @@
+
+.wrapper_panel{
+    position: relative;
+    border-top: 10px solid #ffc522 ;
+}
+
+.wrapper_panel_content{
+    position: absolute;
+    z-index: 10;
+    top: -7px;
+    display: flex;
+    justify-content: flex-end;
+    right: 0;
+}
+
+/* Config css header_panel */
+.header_panel{
+    display: flex;
+    text-align: left;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 30px;
+    background-color: #ffc522;
+    padding-right: 120px;
+    height: 34px;
+}
+
+/* End build css header_panel */
+
+
+/* Config css language */
+.language{
+    display: flex;
+}
+
+.language_original, .language_foreign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    column-gap: 8px;
+}
+
+
+.language_original{
+    margin-right: 10px;
+    color: #e31837;
+}
+
+.language_foreign{
+    margin-left: 10px;
+}
+
+.img{
+    width: 20px;
+    height: 20px;
+}
+
+/* End config css language */
+
+/* Config css switcher */
+.switcher{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+/* End config css switcher */
+
+/* Config css header_register */
+.header_register{
+    display: flex;
+    column-gap: 8px;
+    font-weight: bold;
+    align-items: center;
+}
+
+.wrap_register{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+/* End config css header_register */
+
+/* Build responsive */
+
+@media screen and (max-width: 1023px){
+   .wrapper_panel{
+    display: none;
+   }
+}
+/* End build responsive */
