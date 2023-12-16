@@ -47,7 +47,7 @@ function PurchaseOrder() {
 
   const getOrderMe = useCallback(async () => {
     try {
-      console.log('««««« pagination »»»»»', pagination);
+      console.log("««««« pagination »»»»»", pagination);
       const response = await axiosClient.get(
         `/orders?page=${pagination.page}&pageSize=${pagination.pageSize}`
       );
@@ -83,34 +83,39 @@ function PurchaseOrder() {
     setOpen(!open);
   };
 
-  const handleCancelOrderDetail = useCallback(async(order) => {
-    const shouldCancel = window.confirm(
-      "Bạn có chắc chắn muốn hủy đơn hàng này?"
-    );
-    if (shouldCancel) {
-      try {
-        setIsLoadingOrderId(order._id);
-        setButtonDisabled((prev) => ({
-          ...prev,
-          delete: true,
-        }));
-        await axiosClient.patch(`/orders/status/${order._id}?status=REJECTED`);
-        await getOrderMe();
-        toast.success("Hủy đơn hàng thành công");
-        setButtonDisabled((prev) => ({
-          ...prev,
-          delete: false,
-        }));
-      } catch (error) {
-        console.error(error);
-        toast.error("Hủy đơn hàng thất bại");
-        setButtonDisabled((prev) => ({
-          ...prev,
-          delete: true,
-        }));
+  const handleCancelOrderDetail = useCallback(
+    async (order) => {
+      const shouldCancel = window.confirm(
+        "Bạn có chắc chắn muốn hủy đơn hàng này?"
+      );
+      if (shouldCancel) {
+        try {
+          setIsLoadingOrderId(order._id);
+          setButtonDisabled((prev) => ({
+            ...prev,
+            delete: true,
+          }));
+          await axiosClient.patch(
+            `/orders/status/${order._id}?status=REJECTED`
+          );
+          await getOrderMe();
+          toast.success("Hủy đơn hàng thành công");
+          setButtonDisabled((prev) => ({
+            ...prev,
+            delete: false,
+          }));
+        } catch (error) {
+          console.error(error);
+          toast.error("Hủy đơn hàng thất bại");
+          setButtonDisabled((prev) => ({
+            ...prev,
+            delete: true,
+          }));
+        }
       }
-    }
-  }, [getOrderMe]);
+    },
+    [getOrderMe]
+  );
 
   useEffect(() => {
     getOrderMe();
@@ -122,7 +127,7 @@ function PurchaseOrder() {
         <title>Thông tin đơn hàng</title>
         <meta name="description" content="Thông tin đơn hàng Jollibee" />
         <meta name="viewport" content="Thông tin đơn hàng Jollibee" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -179,7 +184,7 @@ function PurchaseOrder() {
                           {order._id}
                         </Link>
                       </td>
-                      
+
                       <td className="border-b border-gray-300 p-2">
                         <span
                           className={`inline-block px-2 py-1 w-full rounded text-white ${
@@ -204,19 +209,18 @@ function PurchaseOrder() {
                           <button
                             className="flex-col justify-center hover:bg-gray-400 rounded-md"
                             onClick={() => handleCancelOrderDetail(order)}
-                            disabled = {isButtonDisabled.delete}
+                            disabled={isButtonDisabled.delete}
                           >
-                            {
-                              isButtonDisabled.delete && isLoadingOrderId === order._id ?(
-                                <div
+                            {isButtonDisabled.delete &&
+                            isLoadingOrderId === order._id ? (
+                              <div
                                 className={`flex justify-center items-center`}
                               >
                                 <IsLoadingSmall />
                               </div>
-                              ) : (
-                                <CiTrash size={"20px"} />
-                              )
-                            }
+                            ) : (
+                              <CiTrash size={"20px"} />
+                            )}
                           </button>
                         ) : null}
                       </td>

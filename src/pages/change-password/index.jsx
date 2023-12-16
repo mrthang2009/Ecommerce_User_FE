@@ -113,7 +113,7 @@ function ChangePassword() {
         <title>Thay đổi mật khẩu</title>
         <meta name="description" content="Thay đổi mật khẩu Jollibee" />
         <meta name="viewport" content="Thay đổi mật khẩu Jollibee" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div

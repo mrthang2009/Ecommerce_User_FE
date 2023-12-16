@@ -43,7 +43,7 @@ function ProductList(props) {
         <title>{categoryName}</title>
         <meta name="description" content={`Jollibee ${categoryName}`} />
         <meta name="viewport" content={`Jollibee ${categoryName}`} />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div

@@ -58,15 +58,16 @@ function Profile() {
           return phoneRegex.test(value);
         }),
 
-      birthday: yup.date()
-      .required("Ngày sinh: vui lòng không bỏ trống")
-      .test("birthday type", "Ngày sinh không khả dụng", (value) => {
-        if (value) {
-          return value < Date.now();
-        }else{
-          return true;
-        }
-      }),
+      birthday: yup
+        .date()
+        .required("Ngày sinh: vui lòng không bỏ trống")
+        .test("birthday type", "Ngày sinh không khả dụng", (value) => {
+          if (value) {
+            return value < Date.now();
+          } else {
+            return true;
+          }
+        }),
 
       provinceCode: yup.number(),
 
@@ -74,31 +75,27 @@ function Profile() {
         .string()
         .max(50, "provinceName: cannot exceed 50 characters"),
 
-      districtCode: yup
-        .number()
-        // .test(
-        //   "districtCode type",
-        //   "Mã quận: vui lòng chọn mã tỉnh trước",
-        //   (value, context) => {
-        //     if (context.parent.provinceCode) {
-        //       return true;
-        //     }
-        //   }
-        // )
-        ,
-
+      districtCode: yup.number(),
+      // .test(
+      //   "districtCode type",
+      //   "Mã quận: vui lòng chọn mã tỉnh trước",
+      //   (value, context) => {
+      //     if (context.parent.provinceCode) {
+      //       return true;
+      //     }
+      //   }
+      // )
       districtName: yup
         .string()
         .max(50, "districtName: cannot exceed 50 characters"),
 
-      wardCode: yup
-        .string()
-        .max(500, "wardCode: cannot exceed 50 characters")
-        ,
-
+      wardCode: yup.string().max(500, "wardCode: cannot exceed 50 characters"),
       wardName: yup.string().max(500, "wardName: cannot exceed 50 characters"),
 
-      address: yup.string().max(500, "address: cannot exceed 500 characters").required("Địa chỉ: vui lòng không bỏ trống"),
+      address: yup
+        .string()
+        .max(500, "address: cannot exceed 500 characters")
+        .required("Địa chỉ: vui lòng không bỏ trống"),
     }),
 
     onSubmit: useCallback(async (values) => {
@@ -137,7 +134,11 @@ function Profile() {
 
   const getDistrict = useCallback(async (valuesProvinceCode) => {
     try {
-      if (valuesProvinceCode && valuesProvinceCode !== 0 && valuesProvinceCode !== undefined) {
+      if (
+        valuesProvinceCode &&
+        valuesProvinceCode !== 0 &&
+        valuesProvinceCode !== undefined
+      ) {
         const url = `https://online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=${valuesProvinceCode}`;
         const token = "5f0c9f5c-8471-11ee-96dc-de6f804954c9";
 
@@ -155,7 +156,11 @@ function Profile() {
 
   const getWard = useCallback(async (valuesDistrictCode) => {
     try {
-      if (valuesDistrictCode && valuesDistrictCode !== 0 && valuesDistrictCode !== undefined ) {
+      if (
+        valuesDistrictCode &&
+        valuesDistrictCode !== 0 &&
+        valuesDistrictCode !== undefined
+      ) {
         const url = `https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${valuesDistrictCode}`;
         const token = "5f0c9f5c-8471-11ee-96dc-de6f804954c9";
 
@@ -198,11 +203,11 @@ function Profile() {
 
   useEffect(() => {
     getDistrict(validation.values.provinceCode);
-  
+
     const selectedProvince = provinces.find(
       (province) => province.ProvinceID == validation.values.provinceCode
     );
-  
+
     if (validation.values.provinceCode === 0) {
       validation.setValues((prev) => ({
         ...prev,
@@ -231,7 +236,7 @@ function Profile() {
     const selectedDistrict = districts.find(
       (district) => district.DistrictID == validation.values.districtCode
     );
-      
+
     if (validation.values.districtCode === 0) {
       validation.setValues((prev) => ({
         ...prev,
@@ -243,13 +248,12 @@ function Profile() {
     } else {
       validation.setValues((prev) => ({
         ...prev,
-        districtCode: selectedDistrict ? selectedDistrict.DistrictID: 0,
+        districtCode: selectedDistrict ? selectedDistrict.DistrictID : 0,
         districtName: selectedDistrict ? selectedDistrict.DistrictName : "",
         wardCode: "",
         wardName: "",
       }));
     }
-
   }, [validation.values.districtCode]);
 
   useEffect(() => {
@@ -270,7 +274,7 @@ function Profile() {
         <title>Thông tin cá nhân</title>
         <meta name="description" content="Thông tin cá nhân" />
         <meta name="viewport" content="Thông tin cá nhân" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div
@@ -285,14 +289,10 @@ function Profile() {
           onSubmit={validation.handleSubmit}
           className="w-full max-w-sm px-4 bg-white p-6 rounded-lg text-lg md:text-lg lg:text-xl"
         >
-
           <div className=" flex flex-col md:flex-row lg:flex-row md:gap-x-3 lg:gap-x-3">
             <div className="mb-4 w-full md:w-1/2 lg:w-1/2">
-              <label
-                htmlFor="firstName"
-                className="block text-gray-700 mb-2"
-              >
-                <p className = {`font-bold`}>Họ</p>
+              <label htmlFor="firstName" className="block text-gray-700 mb-2">
+                <p className={`font-bold`}>Họ</p>
                 <input
                   type="text"
                   placeholder="Vui lòng nhập thông tin họ"
@@ -315,11 +315,8 @@ function Profile() {
             </div>
 
             <div className="mb-4 w-full md:w-1/2 lg:w-1/2">
-              <label
-                htmlFor="lastName"
-                className="block text-gray-700 mb-2"
-              >
-                <p className = {`font-bold`}>Tên</p>
+              <label htmlFor="lastName" className="block text-gray-700 mb-2">
+                <p className={`font-bold`}>Tên</p>
                 <input
                   type="text"
                   placeholder="Vui lòng nhập thông tin tên"
@@ -342,13 +339,9 @@ function Profile() {
             </div>
           </div>
 
-
           <div className="mb-4">
-            <label
-              htmlFor="phoneNumber"
-              className="block text-gray-700 mb-2"
-            >
-              <p className = {`font-bold`}>Số điện thoại</p>
+            <label htmlFor="phoneNumber" className="block text-gray-700 mb-2">
+              <p className={`font-bold`}>Số điện thoại</p>
               <input
                 type="text"
                 placeholder="Vui lòng nhập thông tin số điện thoại"
@@ -373,11 +366,8 @@ function Profile() {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="birthday"
-              className="block text-gray-700 mb-2"
-            >
-              <p className = {`font-bold`}>Ngày sinh</p>
+            <label htmlFor="birthday" className="block text-gray-700 mb-2">
+              <p className={`font-bold`}>Ngày sinh</p>
               <input
                 type="date"
                 placeholder="Vui lòng nhập thông tin ngày sinh"
@@ -400,11 +390,8 @@ function Profile() {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="provinceCode"
-              className="block text-gray-700 mb-2"
-            >
-              <p className = {`font-bold`}>Tỉnh Thành</p>
+            <label htmlFor="provinceCode" className="block text-gray-700 mb-2">
+              <p className={`font-bold`}>Tỉnh Thành</p>
               <select
                 name="provinceCode"
                 value={validation.values.provinceCode}
@@ -441,11 +428,8 @@ function Profile() {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="districtCode"
-              className="block text-gray-700 mb-2"
-            >
-              <p className = {`font-bold`}>Quận</p>
+            <label htmlFor="districtCode" className="block text-gray-700 mb-2">
+              <p className={`font-bold`}>Quận</p>
               <select
                 name="districtCode"
                 value={validation.values.districtCode}
@@ -482,11 +466,8 @@ function Profile() {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="wardCode"
-              className="block text-gray-700 mb-2"
-            >
-              <p className = {`font-bold`}>Phường</p>
+            <label htmlFor="wardCode" className="block text-gray-700 mb-2">
+              <p className={`font-bold`}>Phường</p>
               <select
                 name="wardCode"
                 value={validation.values.wardCode}
@@ -502,7 +483,11 @@ function Profile() {
                 {wards &&
                   wards.map((ward) => {
                     return (
-                      <option key={ward.WardCode} value={ward.WardCode} label={ward.WardName}>
+                      <option
+                        key={ward.WardCode}
+                        value={ward.WardCode}
+                        label={ward.WardName}
+                      >
                         {ward.WardName}
                       </option>
                     );
@@ -517,11 +502,8 @@ function Profile() {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="address"
-              className="block text-gray-700 mb-2"
-            >
-             <p className = {`font-bold`}>Địa chỉ</p>
+            <label htmlFor="address" className="block text-gray-700 mb-2">
+              <p className={`font-bold`}>Địa chỉ</p>
               <input
                 type="text"
                 placeholder="Vui lòng nhập thông tin địa chỉ"

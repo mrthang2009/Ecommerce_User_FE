@@ -21,7 +21,7 @@ function Register() {
         <title>Đăng ký</title>
         <meta name="description" content="Đăng ký Jollibee" />
         <meta name="viewport" content="Đăng ký Jollibee" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       {isLogin ? null : <RegisterContent />}
