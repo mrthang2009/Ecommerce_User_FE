@@ -19,7 +19,7 @@ function ProductContent({ products, getCart, index }) {
   return (
     <>
       <li
-        className={`${styles.product_item} p-4 border border-dashed border-yellow-500`}
+        className={`${styles.product_item} p-4`}
       >
         <div className={`${styles.product_item_info} flex flex-col gap-y-6`}>
           <div className="flex justify-center items-center">
