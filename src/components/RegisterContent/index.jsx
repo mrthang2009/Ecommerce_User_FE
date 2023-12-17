@@ -270,7 +270,7 @@ function RegisterContent() {
                   </Dialog.Title>
                   <div className="mt-2">
                     <input
-                      type="number"
+                      type="text"
                       // value={verificationCode}
                       // onChange={(e) => setVerificationCode(e.target.value)}
                     />
