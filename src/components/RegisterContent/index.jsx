@@ -90,7 +90,7 @@ function RegisterContent() {
   const handleVerificationSubmit = async () => {
     try {
       // Gọi API xác thực email với mã xác thực từ state
-      await axiosClient.post("/auth/verify", {
+      const response = await axiosClient.post("/auth/verify", {
         firstName: validation.values.firstName,
         lastName: validation.values.lastName,
         email: validation.values.email,
