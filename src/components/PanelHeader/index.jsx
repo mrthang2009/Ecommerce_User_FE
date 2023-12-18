@@ -63,6 +63,7 @@ function PanelHeader({ customer, isLogin }) {
                   <li>
                     <Link href="/register">Đăng kí</Link>
                   </li>
+                  <li>/</li>
                   <li>
                     <Link href="/login">Đăng nhập</Link>
                   </li>
