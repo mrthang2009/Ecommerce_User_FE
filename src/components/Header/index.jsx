@@ -10,13 +10,12 @@ import PanelHeader from "../PanelHeader";
 import axiosClient from "@/libraries/axiosClient";
 import useCustomer from "@/hooks/useCustomer";
 
-
 function Header() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  // const [isTransitioning, setIsTransitioning] = useState(false);
   // const [customer, setCustomer] = useState({});
   const customer = useCustomer((state) => state.customer);
   const setCustomer = useCustomer((state) => state.setCustomer);
@@ -27,13 +26,13 @@ function Header() {
   }, [router.asPath]);
 
   const handleShowNav = () => {
-      setShowNav(!showNav);
+    setShowNav(!showNav);
   };
 
   //Chỉ gọi khi đăng nhập vào
   const getMe = useCallback(async (isLogin) => {
     try {
-      if(isLogin === true){
+      if (isLogin === true) {
         const res = await axiosClient.get("/customers");
         setCustomer(res.data?.payload || []);
       }
@@ -53,7 +52,6 @@ function Header() {
       //  isLogin === true set client sử dụng token
       // sử dụng !! sử dụng hai lần phủ định - sự thay đổi của token
       setIsLogin(!!token);
-     
     }
   });
 
@@ -65,10 +63,10 @@ function Header() {
       }
     };
 
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener("resize", handleWindowResize);
 
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
 
@@ -81,41 +79,38 @@ function Header() {
         setIsFixed(false);
       }
     };
-  
-    window.addEventListener('scroll', handleScroll);
-  
+
+    window.addEventListener("scroll", handleScroll);
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
-    <header className={`${styles.page_header} ${isFixed ? styles.fixed_header : ''}`}>
-      <PanelHeader customer = {customer} isLogin = {isLogin}/>
-      
+    <header
+      className={`${styles.page_header} ${isFixed ? styles.fixed_header : ""}`}
+    >
+      <PanelHeader customer={customer} isLogin={isLogin} />
       <div className="container mx-auto">
-        <div className={`${styles.header_content}`}>
+        <div className={styles.header_content}>
           <button
             onClick={handleShowNav}
             className="flex justify-center md:flex lg:hidden items-center"
           >
             <IoMenu size={"50px"} color="#F6F1E6" />
           </button>
-          <HeaderLogo />
-          <div className="hidden md:hidden lg:flex">
-            <NavigationBar/>
+          <div className={styles.header_middle}>
+            <HeaderLogo />
+            <NavigationBar />
+            <Delivery customer={customer} isLogin={isLogin} />
           </div>
-            <Delivery customer = {customer} isLogin = {isLogin}/>
         </div>
-        {/* Build toggle */}
         {showNav && (
-          <>
-            <div className = {`flex md:flex lg:hidden`}>
-              <NavigationBar showNav={showNav} />
-            </div>
-          </>
+          <div className={`flex md:flex lg:hidden`}>
+            <NavigationBar showNav={showNav} />
+          </div>
         )}
-        {/* End build toggle */}
       </div>
     </header>
   );

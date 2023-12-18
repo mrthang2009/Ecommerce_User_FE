@@ -70,6 +70,7 @@ function RegisterContent() {
         router.push("/register");
         setShowVerificationModal(true);
         toast.warning("Vui lòng nhập mã xác thực được gửi đến email của bạn");
+        setIsButtonDisabled(false);
       } catch (error) {
         console.error(error);
         setIsButtonDisabled(false);
@@ -83,7 +84,32 @@ function RegisterContent() {
       }
     },
   });
+  // Thêm state để lưu trữ mã xác thực
+  const [verificationCode, setVerificationCode] = useState("");
+  // Hàm xử lý khi nhấn nút "Xác nhận" trong Dialog
+  const handleVerificationSubmit = async () => {
+    try {
+      // Gọi API xác thực email với mã xác thực từ state
+      await axiosClient.post("/auth/verify", {
+        firstName: validation.values.firstName,
+        lastName: validation.values.lastName,
+        email: validation.values.email,
+        phoneNumber: validation.values.phoneNumber,
+        password: validation.values.password,
+        enteredCode: verificationCode,
+      });
 
+      // Đóng Dialog sau khi xác thực thành công
+      setShowVerificationModal(false);
+      router.push("/");
+      // Hiển thị thông báo hoặc thực hiện các tác vụ khác sau khi xác thực
+      toast.success("Xác thực email thành công! Đăng kí tài khoản thành công!");
+    } catch (error) {
+      console.error(error);
+      // Xử lý lỗi nếu có
+      toast.error("Xác thực email thất bại. Vui lòng thử lại.");
+    }
+  };
   return (
     <div
       className="flex justify-center items-center bg-gray-100 p-10"
@@ -227,7 +253,7 @@ function RegisterContent() {
             </button>
           </div>
         </form>
-        <Transition show={showVerificationModal} as={React.Fragment}>
+        {/* <Transition show={showVerificationModal} as={React.Fragment}>
           <Dialog
             onClose={() => setShowVerificationModal(false)}
             className="fixed inset-0 z-10 overflow-y-auto"
@@ -245,7 +271,6 @@ function RegisterContent() {
                 <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
               </Transition.Child>
 
-              {/* This element is to trick the browser into centering the modal contents. */}
               <span
                 className="hidden sm:inline-block sm:align-middle sm:h-screen"
                 aria-hidden="true"
@@ -261,25 +286,92 @@ function RegisterContent() {
                 leaveFrom="opacity-100 translate-y-0 sm:opacity-100 sm:translate-y-0"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0"
               >
-                <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                   <Dialog.Title
                     as="h3"
                     className="text-lg leading-6 font-medium text-gray-900"
                   >
-                    Xin mời nhập mã xác thực
+                    Xác thực email
                   </Dialog.Title>
                   <div className="mt-2">
+                    <p>
+                      Nhập mã xác thực được gửi đến email{" "}
+                      <strong style={{ color: "#FFC522" }}>
+                        {validation.values.email}
+                      </strong>
+                    </p>
                     <input
                       type="text"
-                      // value={verificationCode}
-                      // onChange={(e) => setVerificationCode(e.target.value)}
+                      value={verificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value)}
                     />
                   </div>
                   <div className="mt-4">
                     <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                      onClick={() => setShowVerificationModal(false)}
+                      // onClick={() => setShowVerificationModal(false)}
+                      onClick={handleVerificationSubmit}
+                    >
+                      Xác nhận
+                    </button>
+                  </div>
+                </div>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition> */}
+        <Transition show={showVerificationModal} as={React.Fragment}>
+          <Dialog
+            onClose={() => setShowVerificationModal(false)}
+            className="fixed inset-0 z-10 overflow-y-auto"
+          >
+            <div className="flex items-center justify-center min-h-screen">
+              <Transition.Child
+                as={React.Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              </Transition.Child>
+
+              <Transition.Child
+                as={React.Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:opacity-100"
+                enterTo="opacity-100 translate-y-0 sm:opacity-100 sm:translate-y-0"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 translate-y-0 sm:opacity-100 sm:translate-y-0"
+                leaveTo="opacity-0 translate-y-4 sm:translate-y-0"
+              >
+                <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full" >
+                  <Dialog.Title className="text-lg font-medium text-gray-900 mb-4" style={{fontSize: "35px"}}>
+                    Xác thực email
+                  </Dialog.Title>
+                  <div className="mb-4" >
+                    <p style={{fontSize: "30px"}}>
+                      Nhập mã xác thực được gửi đến email{" "}
+                      <strong className="text-yellow-500">
+                        {validation.values.email}
+                      </strong>
+                    </p>
+                    <input
+                      type="text"
+                      value={verificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value)}
+                      className="mt-2 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-500"
+                    />
+                  </div>
+                  <div className="text-center" >
+                    <button
+                      type="button"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                      onClick={handleVerificationSubmit}
+                      style={{fontSize: "30px"}}
                     >
                       Xác nhận
                     </button>

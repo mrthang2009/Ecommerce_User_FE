@@ -1,17 +1,17 @@
 .main_navigation{
     display: flex;
-    column-gap: 6px;
     background-color: #e31837;
     color: #fff;
     align-items: flex-end;
     text-align: center;
-    padding: 10px;
+    padding-top: 25px;
     font-weight: 500;
 }
 
 .main_navigation li{
-    padding: 12px 10px;
-    font-size: 26px;
+    font-size: 30px;
+    width: 150px;
+    text-transform: uppercase;
 }
 
 .main_navigation li:hover{

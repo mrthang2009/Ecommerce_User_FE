@@ -1,13 +1,7 @@
-
-.wrapper_panel{
-    position: relative;
-    border-top: 10px solid #ffc522 ;
-}
-
 .wrapper_panel_content{
     position: absolute;
     z-index: 10;
-    top: -7px;
+    top: 3px;
     display: flex;
     justify-content: flex-end;
     right: 0;
@@ -21,7 +15,7 @@
     justify-content: flex-end;
     column-gap: 30px;
     background-color: #ffc522;
-    padding-right: 120px;
+    padding-right: 20px;
     height: 34px;
 }
 
@@ -59,19 +53,11 @@
 /* End config css language */
 
 /* Config css switcher */
-.switcher{
+.infor{
     display: flex;
     align-items: center;
-    column-gap: 8px;
-}
-/* End config css switcher */
-
-/* Config css header_register */
-.header_register{
-    display: flex;
     column-gap: 8px;
     font-weight: bold;
-    align-items: center;
 }
 
 .wrap_register{
