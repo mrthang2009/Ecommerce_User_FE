@@ -98,12 +98,17 @@ function RegisterContent() {
         password: validation.values.password,
         enteredCode: verificationCode,
       });
-
-      // Đóng Dialog sau khi xác thực thành công
-      setShowVerificationModal(false);
-      router.push("/");
-      // Hiển thị thông báo hoặc thực hiện các tác vụ khác sau khi xác thực
-      toast.success("Xác thực email thành công! Đăng kí tài khoản thành công!");
+      if (!response.data.payload) {
+        toast.error(response.data.message);
+      } else {
+        // Đóng Dialog sau khi xác thực thành công
+        setShowVerificationModal(false);
+        router.push("/");
+        // Hiển thị thông báo hoặc thực hiện các tác vụ khác sau khi xác thực
+        toast.success(
+          "Xác thực email thành công! Đăng kí tài khoản thành công!"
+        );
+      }
     } catch (error) {
       console.error(error);
       // Xử lý lỗi nếu có
@@ -348,12 +353,15 @@ function RegisterContent() {
                 leaveFrom="opacity-100 translate-y-0 sm:opacity-100 sm:translate-y-0"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0"
               >
-                <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full" >
-                  <Dialog.Title className="text-lg font-medium text-gray-900 mb-4" style={{fontSize: "35px"}}>
+                <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
+                  <Dialog.Title
+                    className="text-lg font-medium text-gray-900 mb-4"
+                    style={{ fontSize: "35px" }}
+                  >
                     Xác thực email
                   </Dialog.Title>
-                  <div className="mb-4" >
-                    <p style={{fontSize: "30px"}}>
+                  <div className="mb-4">
+                    <p style={{ fontSize: "30px" }}>
                       Nhập mã xác thực được gửi đến email{" "}
                       <strong className="text-yellow-500">
                         {validation.values.email}
@@ -366,12 +374,12 @@ function RegisterContent() {
                       className="mt-2 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-500"
                     />
                   </div>
-                  <div className="text-center" >
+                  <div className="text-center">
                     <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                       onClick={handleVerificationSubmit}
-                      style={{fontSize: "30px"}}
+                      style={{ fontSize: "30px" }}
                     >
                       Xác nhận
                     </button>
