@@ -6,11 +6,12 @@
     text-align: center;
     padding-top: 25px;
     font-weight: 500;
+    column-gap: 5px;
 }
 
 .main_navigation li{
-    font-size: 30px;
-    width: 150px;
+    font-size: 25px;
+    width: 100px;
     text-transform: uppercase;
 }
 

@@ -21,19 +21,17 @@ function NavItem({ categories, showCategories, setShowCategories }) {
   }, [router.asPath]);
 
   return (
-    <li onClick={categories.id === 3 ? handleShowCategories : null}>
-      <Link
-        className={
-          currentPath === categories.path ||
-          (currentPath.includes("/thuc-don/") &&
-            categories.path.includes("/thuc-don/"))
-            ? styles.current
-            : ""
-        }
-        href={categories.path}
-      >
-        {categories.label}
-      </Link>
+    <li
+      onClick={categories.id === 3 ? handleShowCategories : null}
+      className={
+        currentPath === categories.path ||
+        (currentPath.includes("/thuc-don/") &&
+          categories.path.includes("/thuc-don/"))
+          ? styles.current
+          : ""
+      }
+    >
+      <Link href={categories.path}>{categories.label}</Link>
       {categories.child && categories.child.length > 0 && (
         <div
           className={`${styles.nav_child} ${
