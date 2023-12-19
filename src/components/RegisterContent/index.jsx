@@ -10,7 +10,6 @@ function RegisterContent() {
   const router = useRouter();
   const [forgotPassword, setForgotPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [isLinkDisabled, setIsLinkDisabled] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const validation = useFormik({
     initialValues: {
@@ -86,20 +85,17 @@ function RegisterContent() {
   });
   const handleResendCode = async () => {
     try {
-      setIsLinkDisabled(true);
       setForgotPassword(false);
       await axiosClient.post("/auth/send-code", {
         email: validation.values.email,
         phoneNumber: validation.values.phoneNumber,
-        forgotPassword: forgotPassword,
+        forgotPassword: false,
       });
       router.push("/register");
       setShowVerificationModal(true);
       toast.warning("Mã xác thực mới đã được gửi đến email của bạn.");
-      setIsLinkDisabled(false);
     } catch (error) {
       console.error(error);
-      setIsLinkDisabled(false);
       if (error.response) {
         // Lỗi trả về từ API
         const errorMessage = error.response.data.error;
@@ -310,17 +306,16 @@ function RegisterContent() {
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
                       className="mt-2 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-500 "
-                      style={{fontSize:"166%", width:"40%"}}
+                      style={{ fontSize: "166%", width: "40%" }}
                     />
                     <a
-                      // className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                       style={{
                         fontSize: "28px",
                         cursor: "pointer",
                         color: "#0861F2",
                       }}
                       onClick={handleResendCode}
-                      disabled={isButtonDisabled}
+                      disabled={isLinkDisabled}
                     >
                       {isLinkDisabled ? (
                         <div className="flex items-center gap-2">
