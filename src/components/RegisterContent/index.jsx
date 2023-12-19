@@ -344,15 +344,15 @@ function RegisterContent() {
                       )}
                     </a>
                   </div>
-                  <div className="text-center flex gap-10">
-                    {/* <button
+                  <div className="text-center flex gap-5 justify-center">
+                    <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-600 border border-red-600 rounded-md hover:bg-white hover:text-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                       onClick={() => setShowVerificationModal(false)}
                       style={{ fontSize: "30px" }}
                     >
                       Hủy
-                    </button> */}
+                    </button>
                     <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
