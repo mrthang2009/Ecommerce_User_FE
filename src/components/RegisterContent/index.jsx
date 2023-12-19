@@ -8,7 +8,6 @@ import IsLoadingSmall from "../IsLoadingSmall";
 import { Dialog, Transition } from "@headlessui/react";
 function RegisterContent() {
   const router = useRouter();
-  const [forgotPassword, setForgotPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const validation = useFormik({
@@ -60,11 +59,10 @@ function RegisterContent() {
     onSubmit: async (values) => {
       try {
         setIsButtonDisabled(true);
-        setForgotPassword(false);
         await axiosClient.post("/auth/send-code", {
           email: validation.values.email,
           phoneNumber: validation.values.phoneNumber,
-          forgotPassword: forgotPassword,
+          forgotPassword: false
         });
         router.push("/register");
         setShowVerificationModal(true);
@@ -85,7 +83,6 @@ function RegisterContent() {
   });
   const handleResendCode = async () => {
     try {
-      setForgotPassword(false);
       await axiosClient.post("/auth/send-code", {
         email: validation.values.email,
         phoneNumber: validation.values.phoneNumber,
