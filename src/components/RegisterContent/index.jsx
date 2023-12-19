@@ -9,6 +9,7 @@ import { Dialog, Transition } from "@headlessui/react";
 function RegisterContent() {
   const router = useRouter();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isLinkDisabled, setIsLinkDisabled] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const validation = useFormik({
     initialValues: {
@@ -62,7 +63,7 @@ function RegisterContent() {
         await axiosClient.post("/auth/send-code", {
           email: validation.values.email,
           phoneNumber: validation.values.phoneNumber,
-          forgotPassword: false
+          forgotPassword: false,
         });
         router.push("/register");
         setShowVerificationModal(true);
@@ -83,6 +84,7 @@ function RegisterContent() {
   });
   const handleResendCode = async () => {
     try {
+      setIsLinkDisabled(true);
       await axiosClient.post("/auth/send-code", {
         email: validation.values.email,
         phoneNumber: validation.values.phoneNumber,
@@ -91,8 +93,10 @@ function RegisterContent() {
       router.push("/register");
       setShowVerificationModal(true);
       toast.warning("Mã xác thực mới đã được gửi đến email của bạn.");
+      setIsLinkDisabled(false);
     } catch (error) {
       console.error(error);
+      setIsLinkDisabled(false);
       if (error.response) {
         // Lỗi trả về từ API
         const errorMessage = error.response.data.error;
@@ -123,6 +127,7 @@ function RegisterContent() {
         // Đóng Dialog sau khi xác thực thành công
         setShowVerificationModal(false);
         router.push("/login");
+        // Hiển thị thông báo hoặc thực hiện các tác vụ khác sau khi xác thực
         toast.success("Đăng kí tài khoản thành công!");
       }
       setIsButtonDisabled(false);
@@ -305,13 +310,14 @@ function RegisterContent() {
                       style={{ fontSize: "166%", width: "40%" }}
                     />
                     <a
+                      // className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                       style={{
                         fontSize: "28px",
                         cursor: "pointer",
                         color: "#0861F2",
                       }}
                       onClick={handleResendCode}
-                      disabled={isLinkDisabled}
+                      disabled={isButtonDisabled}
                     >
                       {isLinkDisabled ? (
                         <div className="flex items-center gap-2">
