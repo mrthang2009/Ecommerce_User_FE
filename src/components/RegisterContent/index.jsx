@@ -123,7 +123,6 @@ function RegisterContent() {
         // Đóng Dialog sau khi xác thực thành công
         setShowVerificationModal(false);
         router.push("/login");
-        // Hiển thị thông báo hoặc thực hiện các tác vụ khác sau khi xác thực
         toast.success("Đăng kí tài khoản thành công!");
       }
       setIsButtonDisabled(false);
