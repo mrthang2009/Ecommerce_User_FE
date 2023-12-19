@@ -97,10 +97,9 @@ function ForgotPassword() {
       setIsLinkDisabled(true);
       await axiosClient.post("/auth/send-code", {
         email: validation.values.email,
-        phoneNumber: validation.values.phoneNumber,
-        forgotPassword: false,
+        forgotPassword: true,
       });
-      router.push("/register");
+      router.push("/forgot-password");
       setShowVerificationModal(true);
       toast.warning("Mã xác thực mới đã được gửi đến email của bạn.");
       setIsLinkDisabled(false);
@@ -123,12 +122,10 @@ function ForgotPassword() {
     try {
       setIsButtonDisabled(true);
       // Gọi API xác thực email với mã xác thực từ state
-      const response = await axiosClient.post("/auth/register", {
-        firstName: validation.values.firstName,
-        lastName: validation.values.lastName,
+      const response = await axiosClient.post("/auth/forgot-password", {
         email: validation.values.email,
-        phoneNumber: validation.values.phoneNumber,
-        password: validation.values.password,
+        newPassword: validation.values.newPassword,
+        confirmPassword: validation.values.confirmPassword,
         enteredCode: verificationCode,
       });
       if (!response.data.payload) {
@@ -193,11 +190,11 @@ function ForgotPassword() {
               id="email"
               className="border border-gray-300 rounded px-3 py-2 w-full"
               placeholder="Vui lòng nhập email của bạn"
-              name="passwordOld"
-              value={validation.values.passwordOld}
+              name="email" // Sửa tên trường này thành "email"
+              value={validation.values.email}
               onChange={validation.handleChange}
               onBlur={validation.handleBlur}
-              autoComplete="off" // Tắt gợi ý nhập
+              autoComplete="off"
             />
           </div>
           {validation.errors.passwordOld && validation.touched.passwordOld && (
