@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { Dialog, Transition } from "@headlessui/react";
+// import { Dialog, Transition } from "@headlessui/react";
 
 import axiosClient from "../../libraries/axiosClient";
 import IsLoadingSmall from "../IsLoadingSmall";
@@ -12,7 +12,7 @@ import IsLoadingSmall from "../IsLoadingSmall";
 function LoginContent() {
   const router = useRouter();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  // const [showVerificationModal, setShowVerificationModal] = useState(false);
 
   const validation = useFormik({
     initialValues: {
@@ -49,30 +49,30 @@ function LoginContent() {
       }
     },
   });
-  const [isLinkDisabled, setIsLinkDisabled] = useState(false);
-  const handleResendCode = async () => {
-    try {
-      setIsLinkDisabled(true);
-      await axiosClient.post("/auth/send-code", {
-        email: validation.values.email,
-        forgotPassword: true,
-      });
-      router.push("/login");
-      setShowVerificationModal(true)
-      toast.warning("Vui lòng nhập mã xác thực đã được gửi đến email của bạn");
-      setIsLinkDisabled(false);
-    } catch (error) {
-      console.error(error);
-      setIsLinkDisabled(false);
-      if (error.response) {
-        // Lỗi trả về từ API
-        const errorMessage = error.response.data.error;
-        toast.error(errorMessage);
-      } else {
-        toast.error("Gửi lại mã xác thực thất bại. Vui lòng thử lại.");
-      }
-    }
-  };
+  // const [isLinkDisabled, setIsLinkDisabled] = useState(false);
+  // const handleResendCode = async () => {
+  //   try {
+  //     setIsLinkDisabled(true);
+  //     await axiosClient.post("/auth/send-code", {
+  //       email: validation.values.email,
+  //       forgotPassword: true,
+  //     });
+  //     router.push("/login");
+  //     setShowVerificationModal(true)
+  //     toast.warning("Vui lòng nhập mã xác thực đã được gửi đến email của bạn");
+  //     setIsLinkDisabled(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //     setIsLinkDisabled(false);
+  //     if (error.response) {
+  //       // Lỗi trả về từ API
+  //       const errorMessage = error.response.data.error;
+  //       toast.error(errorMessage);
+  //     } else {
+  //       toast.error("Gửi lại mã xác thực thất bại. Vui lòng thử lại.");
+  //     }
+  //   }
+  // };
   return (
     <div
       className="flex justify-center items-center bg-gray-100 p-10"
@@ -120,15 +120,16 @@ function LoginContent() {
               </div>
             )}
           </div>
-          <p
+          <Link
+            href="forgot-password"
             style={{
               cursor: "pointer",
               color: "#FFC522",
             }}
-            onClick={() => setShowVerificationModal(true)}
+            // onClick={() => setShowVerificationModal(true)}
           >
             Quên mật khẩu?
-          </p>
+          </Link>
           <button
             type="submit"
             className="bg-red-600 hover:bg-red-400 text-white rounded-lg py-2 px-4 w-full"
@@ -151,7 +152,7 @@ function LoginContent() {
             </Link>
           </div>
         </form>
-        <Transition show={showVerificationModal} as={React.Fragment}>
+        {/* <Transition show={showVerificationModal} as={React.Fragment}>
           <Dialog
             onClose={() => setShowVerificationModal(false)}
             className="fixed inset-0 z-10 overflow-y-auto"
@@ -263,7 +264,7 @@ function LoginContent() {
               </Transition.Child>
             </div>
           </Dialog>
-        </Transition>
+        </Transition> */}
       </div>
     </div>
   );
