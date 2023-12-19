@@ -50,7 +50,6 @@ function LoginContent() {
     },
   });
   const [isLinkDisabled, setIsLinkDisabled] = useState(false);
-
   const handleResendCode = async () => {
     try {
       setIsLinkDisabled(true);
@@ -58,8 +57,9 @@ function LoginContent() {
         email: validation.values.email,
         forgotPassword: true,
       });
-      router.push("/register");
-      toast.warning("Mã xác thực đã được gửi đến email của bạn.");
+      router.push("/login");
+      setShowVerificationModal(true)
+      toast.warning("Vui lòng nhập mã xác thực đã được gửi đến email của bạn");
       setIsLinkDisabled(false);
     } catch (error) {
       console.error(error);
