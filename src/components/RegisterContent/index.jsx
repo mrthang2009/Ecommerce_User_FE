@@ -314,8 +314,7 @@ function RegisterContent() {
                   </Dialog.Title>
                   <div className="mb-4">
                     <p style={{ fontSize: "30px" }}>
-                      Mã xác thực đã được gửi đến email{" "}
-                      {hideEmail(validation.values.email)}. Vui lòng nhập mã xác
+                      Mã xác thực đã được gửi đến email {hideEmail(validation.values.email)}. Vui lòng nhập mã xác
                       thực email để hoàn thành đăng kí.
                     </p>
                     <input
