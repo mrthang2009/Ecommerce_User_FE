@@ -121,7 +121,7 @@ function ForgotPassword() {
           </h2>
           <div className="mb-4">
             <label htmlFor="passwordOld" className="block font-bold mb-1">
-              Nhập email:
+              Email:
             </label>
             <input
               type="password"
