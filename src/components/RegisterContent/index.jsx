@@ -138,6 +138,19 @@ function RegisterContent() {
       toast.error("Xác thực email thất bại. Vui lòng thử lại.");
     }
   };
+  const hideEmail = (email) => {
+    const atIndex = email.indexOf("@");
+
+    if (atIndex > 1) {
+      const visiblePart = email.substring(0, 1) + "*".repeat(atIndex - 1);
+      const hiddenPart = email.substring(atIndex);
+      return visiblePart + hiddenPart;
+    } else {
+      // Không có ký tự trước @ hoặc email không hợp lệ
+      return email;
+    }
+  };
+
   return (
     <div
       className="flex justify-center items-center bg-gray-100 p-10"
@@ -290,19 +303,20 @@ function RegisterContent() {
               >
                 <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
                   <Dialog.Title
-                    className="text-lg font-medium text-gray-900 mb-4"
-                    style={{ fontSize: "35px" }}
+                    className="text-lg text-gray-900 mb-4 text-center"
+                    style={{
+                      fontSize: "35px",
+                      textTransform: "uppercase",
+                      fontWeight: "bold",
+                    }}
                   >
                     Xác thực email
                   </Dialog.Title>
                   <div className="mb-4">
                     <p style={{ fontSize: "30px" }}>
-                      Mã xác thực đã được gửi đến email
-                      <strong className="text-yellow-500">
-                        {validation.values.email}
-                      </strong>
-                      <br />
-                      Vui lòng nhập mã xác thực email để hoàn thành đăng kí
+                      Mã xác thực đã được gửi đến email{" "}
+                      {hideEmail(validation.values.email)}. Vui lòng nhập mã xác
+                      thực email để hoàn thành đăng kí.
                     </p>
                     <input
                       type="text"
@@ -331,7 +345,15 @@ function RegisterContent() {
                       )}
                     </a>
                   </div>
-                  <div className="text-center">
+                  <div className="text-center flex gap-10">
+                    {/* <button
+                      type="button"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-600 border border-red-600 rounded-md hover:bg-white hover:text-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                      onClick={() => setShowVerificationModal(false)}
+                      style={{ fontSize: "30px" }}
+                    >
+                      Hủy
+                    </button> */}
                     <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
