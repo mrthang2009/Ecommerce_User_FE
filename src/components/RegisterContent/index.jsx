@@ -10,6 +10,7 @@ function RegisterContent() {
   const router = useRouter();
   const [forgotPassword, setForgotPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isLinkDisabled, setIsLinkDisabled] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const validation = useFormik({
     initialValues: {
@@ -85,7 +86,7 @@ function RegisterContent() {
   });
   const handleResendCode = async () => {
     try {
-      setIsButtonDisabled(true);
+      setIsLinkDisabled(true);
       setForgotPassword(false);
       await axiosClient.post("/auth/send-code", {
         email: validation.values.email,
@@ -95,10 +96,10 @@ function RegisterContent() {
       router.push("/register");
       setShowVerificationModal(true);
       toast.warning("Mã xác thực mới đã được gửi đến email của bạn.");
-      setIsButtonDisabled(false);
+      setIsLinkDisabled(false);
     } catch (error) {
       console.error(error);
-      setIsButtonDisabled(false);
+      setIsLinkDisabled(false);
       if (error.response) {
         // Lỗi trả về từ API
         const errorMessage = error.response.data.error;
@@ -321,7 +322,7 @@ function RegisterContent() {
                       onClick={handleResendCode}
                       disabled={isButtonDisabled}
                     >
-                      {isButtonDisabled ? (
+                      {isLinkDisabled ? (
                         <div className="flex items-center gap-2">
                           <IsLoadingSmall />
                           <p>Gửi lại mã xác thực</p>
