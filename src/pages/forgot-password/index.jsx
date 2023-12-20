@@ -40,15 +40,6 @@ function ForgotPassword() {
             return passwordRegex.test(value);
           }
         )
-        .test(
-          "newPassword type",
-          "Mật khẩu mới: không khớp với mật khẩu cũ",
-          (value, context) => {
-            if (context.parent.passwordOld) {
-              return value !== context.parent.passwordOld;
-            }
-          }
-        )
         .min(8)
         .max(20),
 
@@ -135,7 +126,7 @@ function ForgotPassword() {
         setShowVerificationModal(false);
         router.push("/login");
         // Hiển thị thông báo hoặc thực hiện các tác vụ khác sau khi xác thực
-        toast.success("Đăng kí tài khoản thành công!");
+        toast.success("Đặt lại mật khẩu thành công!");
       }
       setIsButtonDisabled(false);
     } catch (error) {
