@@ -545,4 +545,4 @@ function Profile() {
   );
 }
 
-export default withTokenCheckComponent(Profile);
+export default withTokenCheckComponent(Profile, "/");
