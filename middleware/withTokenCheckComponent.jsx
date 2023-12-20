@@ -7,51 +7,47 @@ import decodeToken from "@/libraries/tokenDecoding";
 const withTokenCheckComponent = (WrappedComponent, redirectPage) => {
   return (props) => {
     const router = useRouter();
+    const checkAndRefreshToken = async () => {
+      let token = localStorage.getItem("TOKEN");
+      let refreshToken = localStorage.getItem("REFRESH_TOKEN");
 
-    useEffect(() => {
-      const checkAndRefreshToken = async () => {
-        let token = localStorage.getItem("TOKEN");
-        let refreshToken = localStorage.getItem("REFRESH_TOKEN");
-
-        if (!token) {
+      if (!token) {
+        if (redirectPage) {
+          router.push(redirectPage);
+        } else {
+          router.push("/login");
+        }
+      } else {
+        const decodedPayloadToken = decodeToken(token);
+        const decodedPayloadRefreshToken = decodeToken(refreshToken);
+        if (decodedPayloadRefreshToken.exp >= Date.now() / 1000) {
+          if (decodedPayloadToken.exp < Date.now() / 1000) {
+            try {
+              const res = await axiosClient.post(`auth/refesh-token`, {
+                refreshToken,
+              });
+              const newToken = res.data.token;
+              localStorage.setItem("TOKEN", newToken);
+              axiosClient.defaults.headers.Authorization = `Bearer ${newToken}`;
+            } catch (error) {
+              console.error("Error refreshing token:", error);
+            }
+          } else {
+            axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
+          }
+        } else {
           if (redirectPage) {
             router.push(redirectPage);
           } else {
             router.push("/login");
           }
-        } else {
-          const decodedPayloadToken = decodeToken(token);
-          const decodedPayloadRefreshToken = decodeToken(refreshToken);
-          if (decodedPayloadRefreshToken.exp >= Date.now() / 1000) {
-            if (decodedPayloadToken.exp < Date.now() / 1000) {
-              try {
-                const res = await axiosClient.post(`auth/refesh-token`, {
-                  refreshToken,
-                });
-                const newToken = res.data.token;
-                localStorage.setItem("TOKEN", newToken);
-                axiosClient.defaults.headers.Authorization = `Bearer ${newToken}`;
-              } catch (error) {
-                console.error("Error refreshing token:", error);
-              }
-            } else {
-              axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
-            }
-          } else {
-            if (redirectPage) {
-              router.push(redirectPage);
-            } else {
-              router.push("/login");
-            }
-            localStorage.removeItem("TOKEN");
-            localStorage.removeItem("REFRESH_TOKEN");
-            toast.error("Phiên đăng nhập hết hạng vui lòng đăng nhập lại");
-          }
+          localStorage.removeItem("TOKEN");
+          localStorage.removeItem("REFRESH_TOKEN");
+          toast.error("Phiên đăng nhập hết hạng vui lòng đăng nhập lại");
         }
-      };
-
-      checkAndRefreshToken();
-    }, [redirectPage]);
+      }
+    };
+    checkAndRefreshToken();
 
     return <WrappedComponent {...props} />;
   };
