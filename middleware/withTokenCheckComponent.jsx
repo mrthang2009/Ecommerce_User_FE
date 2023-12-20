@@ -7,6 +7,8 @@ import decodeToken from "@/libraries/tokenDecoding";
 const withTokenCheckComponent = (WrappedComponent, redirectPage) => {
   return (props) => {
     const router = useRouter();
+
+    useEffect(() => {
     const checkAndRefreshToken = async () => {
       let token = localStorage.getItem("TOKEN");
       let refreshToken = localStorage.getItem("REFRESH_TOKEN");
@@ -47,7 +49,9 @@ const withTokenCheckComponent = (WrappedComponent, redirectPage) => {
         }
       }
     };
-    checkAndRefreshToken();
+
+      checkAndRefreshToken();
+    }, [redirectPage]);
 
     return <WrappedComponent {...props} />;
   };
