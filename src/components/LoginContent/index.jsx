@@ -95,7 +95,7 @@ function LoginContent() {
               </div>
             )}
           </div>
-          <Link
+          <a
             href="forgot-password"
             style={{
               cursor: "pointer",
@@ -103,7 +103,7 @@ function LoginContent() {
             }}
           >
             Quên mật khẩu?
-          </Link>
+          </a>
           <div className="text-center">
             <div className="text-center">
               <input
