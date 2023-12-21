@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const withTokenCheckFunction = (func, redirectPage) => {
   const router = useRouter();
   return async (...args) => {
+    
     const checkAndRefreshToken = async () => {
       const token = localStorage.getItem("TOKEN"); // Lấy token từ local storage hoặc nơi lưu trữ khác
       const refreshToken = localStorage.getItem("REFRESH_TOKEN");
