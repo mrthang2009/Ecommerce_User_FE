@@ -12,7 +12,7 @@
     background-color: #F3D2D6;
     width: 85%;
     z-index: 999;
-    top: 95px;
+    top: 99px;
     border-radius: 0 0 30px 30px;
     /* Thêm các thuộc tính sau để căn giữa theo chiều ngang */
     left: 50%;
@@ -27,13 +27,6 @@ ul>li:hover .nav_child {
 
 ul>li:hover .nav_child .item_child {
     flex-basis: calc(16.666% - 20px);
-}
-
-.nav_child .item_child .nav_child_item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
 }
 
 ul>li .nav_child .item_child:hover {

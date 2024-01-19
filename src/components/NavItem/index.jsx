@@ -42,17 +42,16 @@ function NavItem({ categories, showCategories, setShowCategories }) {
             <Link
               key={`NavItem_${child.id}`}
               href={`/thuc-don/${child.path}`}
-              className={styles.item_child}
+              className={`${styles.item_child} flex-basis-1/6 hover:opacity-50`}
             >
-              <div className={styles.nav_child_item}>
-                <div>
-                  <Image
-                    width={80}
-                    height={50}
-                    src={child.media.coverImageUrl}
-                    alt="Gà cay thơm ngon"
-                  />
-                </div>
+              <div className="flex flex-col items-center w-full">
+                <Image
+                  width={80}
+                  height={50}
+                  src={child.media.coverImageUrl}
+                  alt="Gà cay thơm ngon"
+                />
+
                 <div>{child.name}</div>
               </div>
             </Link>
