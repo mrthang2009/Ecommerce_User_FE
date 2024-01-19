@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./WidgetService.module.css";
 import Link from "next/link";
+import Button from "../Button";
 
 function WidgetService() {
   return (
@@ -59,9 +60,7 @@ function Service_Entry({ href, srcImg, alt, contentMedia, contentAction }) {
         </Link>
         <div className={`${styles.media_content} hidden md:hidden lg:block`}>
           <h4 className={styles.media_heading}>{contentMedia}</h4>
-          <Link className={styles.action} href={href}>
-            {contentAction}
-          </Link>
+          <Button nameButton={contentAction} href={href}/>
         </div>
       </div>
     </div>

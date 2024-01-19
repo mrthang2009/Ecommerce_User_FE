@@ -13,7 +13,7 @@ html,body{
   all: initial;
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: 'Dongle', 'Roboto','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Dongle','MergeBlack';
   font-size: 18px;
   font-style: normal; 
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./HomeWidgetMenu.module.css";
-
 function HomeWidgetMenu() {
   return (
     <>
@@ -30,12 +29,6 @@ function HomeWidgetMenu() {
                 srcBottomImg="https://jollibee.com.vn/media/e17856b74b7a0e-titlegagionvuive.png"
                 alt="Jollibee gà rán ngon mỗi ngày"
               />
-              <WidgetTodayMenu
-                hrefLink="/thuc-don/ga-sot-cay"
-                srcTopImg="https://jollibee.com.vn/media/wysiwyg/today/ga_sot_cay.png"
-                srcBottomImg="https://jollibee.com.vn/media/0a7c5c03bdcaaf-titlegasotcay.png"
-                alt="Jollibee gà rán ngon mỗi ngày"
-              />
 
               <WidgetTodayMenu
                 hrefLink="/thuc-don/mi-y-sot-bo-bam"
@@ -43,7 +36,12 @@ function HomeWidgetMenu() {
                 srcBottomImg="https://jollibee.com.vn/media/870d84c56fb2b9-titlemiysotbobam.png"
                 alt="Jollibee gà rán ngon mỗi ngày"
               />
-
+              <WidgetTodayMenu
+                hrefLink="/thuc-don/ga-sot-cay"
+                srcTopImg="https://jollibee.com.vn/media/wysiwyg/today/ga_sot_cay.png"
+                srcBottomImg="https://jollibee.com.vn/media/0a7c5c03bdcaaf-titlegasotcay.png"
+                alt="Jollibee gà rán ngon mỗi ngày"
+              />
               <WidgetTodayMenu
                 hrefLink="/thuc-don/mon-trang-mieng"
                 srcTopImg="https://jollibee.com.vn/media/wysiwyg/today/mon_trang_mieng.png"

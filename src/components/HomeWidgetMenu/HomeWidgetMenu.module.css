@@ -45,11 +45,10 @@
     color: #fff;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    color: #fff;
 }
 
 .today_menu_content .intro_wrapper .description{
-    font-size: 22px;
+    font-size: 28px;
     color: #fff;
 }
 
@@ -132,16 +131,17 @@
     color: #000;
     background: #ffc522;
     padding: 8px 20px;
-    font-size: 20px;
-    box-shadow: none;
+    font-size: 28px;
+    /* box-shadow: none; */
     border: none;
     border-radius: 10px;
     overflow: hidden;
     text-transform: uppercase;
+    font-family: 'Dongle'
 }
 
  .btn_bottom:hover{
-    padding: 10;
+    /* padding: 10; */
     font-weight: 700;
 }
 
