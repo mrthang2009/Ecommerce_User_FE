@@ -1,29 +1,3 @@
-.main_navigation {
-    display: flex;
-    background-color: #e31837;
-    color: #fff;
-    align-items: flex-end;
-    text-align: center;
-    padding-top: 25px;
-    font-weight: 500;
-    column-gap: 5px;
-    position: absolute;
-}
-
-.main_navigation li {
-    font-size: 25px;
-    width: 100px;
-    text-transform: uppercase;
-    padding-top: 8px;
-}
-
-.main_navigation li:hover {
-    color: #e31837;
-    font-weight: bold;
-    background-color: #F3D2D6;
-    border-radius: 10px 10px 0 0;
-}
-
 /* Build responsive */
 @media screen and (max-width: 1023px) {
     .main_navigation {

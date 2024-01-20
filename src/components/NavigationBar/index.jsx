@@ -84,10 +84,14 @@ function NavigationBar() {
     }
     return item;
   });
+  console.log("««««« resultsNavList »»»»»", resultsNavList);
+
+  const [isHovered, setIsHovered] = useState(false);
+  console.log("««««« isHovered »»»»»", isHovered);
   return (
     <Disclosure>
       {({ open }) => (
-        <>
+        <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
             <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -109,7 +113,7 @@ function NavigationBar() {
                     href={item.href}
                     className={classNames(
                       item.current ? "bg-[#F3D2D6] text-[#e31837] " : "",
-                      "text-white rounded-tl-xl rounded-tr-xl font-bold text-xl px-3 py-1.5 uppercase hover:bg-[#F3D2D6] hover:text-[#e31837]"
+                      "text-white rounded-tl-xl rounded-tr-xl font-bold text-xl px-3 pt-1 uppercase hover:bg-[#F3D2D6] hover:text-[#e31837]"
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
@@ -127,6 +131,8 @@ function NavigationBar() {
                   key={item.name}
                   as="a"
                   href={item.href}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                   className={classNames(
                     item.current
                       ? "bg-gray-900 text-white"
@@ -140,26 +146,25 @@ function NavigationBar() {
               ))}
             </div>
           </Disclosure.Panel>
-          {resultsNavList
-            .filter((item) => item.id === 3)
-            .map((item) => (
-              <>
-                {item.child && item.child.length > 0 && (
-                  <div className="bg-[#F3D2D6] space-y-1 px-2 pb-3 pt-2 flex absolute">
-                    {item.child.map((child) => (
-                      <NavCategories
-                        key={child.id}
-                        id={child.id}
-                        path={child.path}
-                        coverImage={child.media.coverImageUrl}
-                        name={child.name}
-                      />
-                    ))}
-                  </div>
-                )}
-              </>
-            ))}
-        </>
+
+          {isHovered && (
+            <div
+              className={classNames(
+                "z-10 bg-[#F3D2D6] space-y-1 px-2 pb-3 pt-2 flex absolute rounded-bl-xl rounded-br-xl"
+              )}
+            >
+              {resultsNavList[2].child.map((child) => (
+                <NavCategories
+                  key={child.id}
+                  id={child.id}
+                  path={child.path}
+                  coverImage={child.media.coverImageUrl}
+                  name={child.name}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </Disclosure>
   );
