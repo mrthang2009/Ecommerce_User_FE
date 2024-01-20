@@ -7,6 +7,7 @@
     padding-top: 25px;
     font-weight: 500;
     column-gap: 5px;
+    position: absolute;
 }
 
 .main_navigation li {

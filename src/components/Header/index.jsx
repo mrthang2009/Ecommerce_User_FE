@@ -100,7 +100,7 @@ function Header() {
           >
             <IoMenu size={"50px"} color="#F6F1E6" />
           </button>
-          <div className="flex w-full align-center justify-between my-2">
+          <div className="flex w-full align-center justify-between my-2 items-center relative">
             <HeaderLogo />
             <NavigationBar />
             <Delivery customer={customer} isLogin={isLogin} />
